@@ -20,6 +20,11 @@ class UsersBase(BaseModel):
 class UsersCreate(UsersBase):
     password: str
 
+class UsersPassword(UsersBase):
+    id: str
+    old_password: str
+    new_password: str
+
 class Users(UsersBase):
     id: str
     create_time: datetime

@@ -1,10 +1,11 @@
 # resp.py
 from fastapi import status
 from fastapi.responses import JSONResponse  # , ORJSONResponse
+from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from typing import Union, Optional
  
-from common.error_code import ErrorBase
+from fastadmin.utils.common.error_code import ErrorBase
  
  
 class respJsonBase(BaseModel):
@@ -15,12 +16,13 @@ class respJsonBase(BaseModel):
  
 def respSuccessJson(data: Union[list, dict, str] = None, msg: str = "Success"):
     """ 接口成功返回 """
+    json_data = jsonable_encoder(data)
     return JSONResponse(
         status_code=status.HTTP_200_OK,
         content={
-            'code': 0,
+            'code': 200,
             'msg': msg,
-            'data': data or {}
+            'data': json_data or {}
         }
     )
  
