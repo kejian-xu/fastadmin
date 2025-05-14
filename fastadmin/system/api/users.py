@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from fastadmin.system import schemas, models
 import hashlib
+from pydantic import BaseModel, ConfigDict
+
 
 def db_create_user(db: Session, user: schemas.UsersCreate):
     db_user = models.Users(username=user.username, password=make_password(user.password))
@@ -8,6 +10,12 @@ def db_create_user(db: Session, user: schemas.UsersCreate):
     db.commit()  # 提交保存到数据库中
     db.refresh(db_user)  # 刷新
     return db_user
+
+
+def db_get_users(db: Session):
+    db_users = db.query(models.Users).all()
+    return db_users
+
 
 def make_password(password):
     # md5

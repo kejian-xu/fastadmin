@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from pydantic.generics import GenericModel
 from typing import Generic, TypeVar, Optional
 from datetime import datetime
@@ -29,6 +29,11 @@ class Users(UsersBase):
         orm_mode = True
 
 
+class UserOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    user_id: int
+    user_name: str
+    email: str
 
 
 

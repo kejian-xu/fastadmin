@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from fastadmin.system.api import users
-from fastadmin.system.schemas import Response,UsersCreate,Users
+from fastadmin.system.schemas import Response,UsersCreate,Users,UserOut
 from fastadmin.system.database import SessionLocal
 from fastadmin.utils.common.resp import respSuccessJson
+
 
 # Dependency
 def get_db():
@@ -28,6 +29,8 @@ router = APIRouter(
 async def create_user(user: UsersCreate, db: Session = Depends(get_db)):
     return respSuccessJson(users.db_create_user(db,user))
 
-@router.get("/users/me")
-async def read_user_me():
-    return {"username": "zhangsan"}
+@router.get("/getUsers")
+async def get_users(db: Session = Depends(get_db)):
+    db_users = users.db_get_users(db)
+    data = [UserOut.model_validate(user) for user in db_users]
+    return respSuccessJson(data)

@@ -8,10 +8,10 @@ HOSTNAME = '127.0.0.1'
 # 端口号
 PORT = '3306'
 # 数据库的名字，连接那个数据库
-DATABASE = 'user'
+DATABASE = 'ruoyi_db'
 # 数据库的账号和密码
 USERNAME = 'root'
-PASSWORD = 'xukejian'
+PASSWORD = 'xukejian123~'
 # 按照要求组织成一定的字符串
 DB_URI = 'mysql+pymysql://{username}:{pwd}@{host}:{port}/{db}?charset=utf8'\
     .format(username =USERNAME,pwd = PASSWORD,host = HOSTNAME,port=PORT,db = DATABASE)
